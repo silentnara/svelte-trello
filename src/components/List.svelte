@@ -49,6 +49,7 @@
     height: 100%;
     margin: 0 4px;
     user-select: none;
+    word-break: break-all;
     :global(&.sortable-ghost) {
       opacity: 0.2;
       position: relative;

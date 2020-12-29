@@ -2,6 +2,7 @@ import path from 'path';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import alias from '@rollup/plugin-alias';
+import strip from '@rollup/plugin-strip'
 import svelte from 'rollup-plugin-svelte';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
@@ -91,8 +92,8 @@ export default {
 			entries: [
 				{ find: '~', replacement: path.resolve(__dirname, 'src/') }
 			]
-		}),
-
+    }),
+    
 		// In dev mode, call `npm run start` once
 		// the bundle has been generated
 		!production && serve(),
@@ -103,7 +104,11 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+    production && terser(),
+    
+    production && strip({
+      include: '**/*.(svelte|js)',
+    })
 	],
 	watch: {
 		clearScreen: false
